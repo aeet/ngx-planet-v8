@@ -11,9 +11,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmptyComponent } from 'ngx-planet-v8';
+import {ProjectsComponent} from "./projects/projects.component";
 
 
 const routes: Routes = [
+  {
+    path: 'app1',
+    children: [
+      {
+        path: '',
+        redirectTo: 'projects',
+        pathMatch: 'full'
+      },
+      {
+        path: 'projects',
+        component: ProjectsComponent
+      }
+
+    ]
+  },
   {
     path: '**',
     component: EmptyComponent

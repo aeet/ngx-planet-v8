@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxPlanetV8Module } from 'ngx-planet-v8';
+import {Overlay} from "@angular/cdk/overlay";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { NgxPlanetV8Module } from 'ngx-planet-v8';
     AppRoutingModule,
     NgxPlanetV8Module,
   ],
-  providers: [],
+  providers: [ { provide: Overlay }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

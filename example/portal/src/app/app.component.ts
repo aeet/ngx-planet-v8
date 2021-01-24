@@ -17,7 +17,7 @@ import { Planet, SwitchModes } from 'ngx-planet-v8';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-
+  activeAppNames: string[] = [];
   get loadingDone() {
     return this.planet.loadingDone;
   }
@@ -76,7 +76,10 @@ export class AppComponent implements OnInit {
     // bootstrap angular sub app module and show it
     this.planet.start();
     console.log(this.planet.getApps());
-
+    this.planet.appsLoadingStart.subscribe(event => {
+      this.activeAppNames = event.shouldLoadApps.map(item => item.name);
+      console.log(`active app names: ${this.activeAppNames.join(',')}`);
+    });
   }
 }
 
