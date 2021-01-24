@@ -17,59 +17,66 @@ import { Planet, SwitchModes } from 'ngx-planet-v8';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  title = 'portal';
 
   get loadingDone() {
     return this.planet.loadingDone;
-}
+  }
 
-  constructor(private planet: Planet) { }
-  ngOnInit(): void {
-    const appHostClass = 'thy-layout';
+  constructor(private planet: Planet) {
+  }
+
+  ngOnInit() {
+    this.planet.setOptions({
+      switchMode: SwitchModes.coexist,
+      errorHandler: error => {
+        console.error(`Failed to load resource, error:`, error);
+      }
+    });
+
     this.planet.registerApps([
       {
         name: 'app1',
         hostParent: '#app-host-container',
-        hostClass: appHostClass,
-        routerPathPrefix: /\/app1|app4/, // '/app1',
-        resourcePathPrefix: '/static/app1/',
-        preload: false,
-        switchMode: SwitchModes.coexist,
-        loadSerial: true,
+        hostClass: 'thy-layout',
+        routerPathPrefix: '/app1',
         stylePrefix: 'app1',
-        // prettier-ignore
+        resourcePathPrefix: '/static/app1/',
+        loadSerial: true,
+        preload: true,
         scripts: [
-          'main.js',
-          // 'polyfills.js'
+          'main.js'
         ],
-        styles: ['styles.css'],
+        styles: [
+          'styles.css'
+        ],
         manifest: '/static/app1/manifest.json',
-        extra: {
-          name: '应用1',
-          color: '#ffa415'
-        }
       },
       {
         name: 'app2',
         hostParent: '#app-host-container',
-        hostClass: appHostClass,
+        hostClass: 'thy-layout',
         routerPathPrefix: '/app2',
-        resourcePathPrefix: '/static/app2/',
-        preload: false,
-        switchMode: SwitchModes.coexist,
         stylePrefix: 'app2',
-        // prettier-ignore
+        resourcePathPrefix: '/static/app2/',
+        loadSerial: true,
+        preload: true,
         scripts: [
           'main.js'
         ],
-        styles: ['styles.css'],
-        manifest: '/static/app2/manifest.json',
-        extra: {
-          name: '应用2',
-          color: '#66c060'
-        }
+        styles: [
+          'styles.css'
+        ],
+        manifest: '/static/app1/manifest.json',
       }
     ]);
+
+    // start monitor route changes
+    // get apps to active by current path
+    // load static resources which contains javascript and css
+    // bootstrap angular sub app module and show it
     this.planet.start();
+    console.log(this.planet.getApps());
+
   }
 }
+

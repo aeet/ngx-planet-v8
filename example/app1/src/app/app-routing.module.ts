@@ -14,8 +14,11 @@ import { EmptyComponent } from 'ngx-planet-v8';
 
 
 const routes: Routes = [
-  { path: "app1", component: EmptyComponent }
-];
+  {
+    path: '**',
+    component: EmptyComponent
+  }
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -14,6 +14,7 @@ import { EmptyComponent } from 'ngx-planet-v8';
 
 
 const routes: Routes = [
+  {path: '', redirectTo: 'app1', pathMatch: 'full'},
   {
     path: 'app1',
     component: EmptyComponent,
@@ -33,11 +34,11 @@ const routes: Routes = [
         component: EmptyComponent
       }
     ]
-  },
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
