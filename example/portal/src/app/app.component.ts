@@ -9,7 +9,7 @@
  * @LICENSE: Apache-2.0
  */
 import { Component, OnInit } from '@angular/core';
-import { Planet, SwitchModes } from 'ngx-planet-v8';
+import {Planet, SwitchModes} from 'ngx-planet-v8';
 
 @Component({
   selector: 'app-root',
