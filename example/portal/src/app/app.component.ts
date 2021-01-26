@@ -2,7 +2,7 @@
  * @Author: ferried
  * @Email: harlancui@outlook.com
  * @Date: 2021-01-22 10:27:38
- * @LastEditTime: 2021-01-22 10:54:44
+ * @LastEditTime: 2021-01-26 15:14:47
  * @LastEditors: ferried
  * @Description: Basic description
  * @FilePath: /ngx-planet-v8-parent/example/portal/src/app/app.component.ts
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
         stylePrefix: 'app1',
         resourcePathPrefix: '/static/app1/',
         loadSerial: true,
-        preload: true,
+        preload: false,
         scripts: [
           'main.js'
         ],
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
         stylePrefix: 'app2',
         resourcePathPrefix: '/static/app2/',
         loadSerial: true,
-        preload: true,
+        preload: false,
         scripts: [
           'main.js'
         ],

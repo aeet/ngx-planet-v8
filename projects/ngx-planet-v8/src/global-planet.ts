@@ -3,6 +3,7 @@ import { PlanetPortalApplication } from './application/portal-application';
 import { PlanetApplicationLoader } from './application/planet-application-loader';
 import { PlanetApplicationService } from './application/planet-application.service';
 import { isFunction } from './helpers';
+import { PlanetComponentService } from './component/planet-component-service';
 
 declare const window: any;
 
@@ -11,6 +12,7 @@ export interface GlobalPlanet {
     portalApplication?: PlanetPortalApplication;
     applicationLoader?: PlanetApplicationLoader;
     applicationService?: PlanetApplicationService;
+    componentService?: PlanetComponentService;
 }
 
 export const globalPlanet: GlobalPlanet = (window.planet = window.planet || {
@@ -63,9 +65,18 @@ export function getApplicationService() {
     return globalPlanet.applicationService;
 }
 
+export function setComponentService(service: PlanetComponentService) {
+    globalPlanet.componentService = service
+}
+
+export function getComponentService() {
+    return globalPlanet.componentService
+}
+
 export function clearGlobalPlanet() {
     window.planet.apps = {};
     window.planet.portalApplication = null;
     window.planet.applicationLoader = null;
     window.planet.applicationService = null;
+    window.planet.componentService = null;
 }

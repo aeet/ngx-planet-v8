@@ -7,7 +7,7 @@ import { coerceArray } from '../helpers';
 import { map, shareReplay, finalize, debounce, filter, take, delay, delayWhen } from 'rxjs/operators';
 import { of, Observable, interval, timer } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
-import { globalPlanet, getApplicationLoader, getApplicationService } from '../global-planet';
+import { globalPlanet, getApplicationLoader, getApplicationService, getComponentService } from '../global-planet';
 
 const componentWrapperClass = 'planet-component-wrapper';
 
@@ -30,12 +30,16 @@ export class PlanetComponentLoader {
         return getApplicationService();
     }
 
+    private get componentService() {
+        return getComponentService();
+    }
+
     constructor(
         private applicationRef: ApplicationRef,
         private ngModuleRef: NgModuleRef<any>,
         private ngZone: NgZone,
         @Inject(DOCUMENT) private document: any
-    ) {}
+    ) { }
 
     private getPlantAppRef(name: string): Observable<PlanetApplicationRef> {
         if (globalPlanet.apps[name] && globalPlanet.apps[name].appModuleRef) {
@@ -121,6 +125,7 @@ export class PlanetComponentLoader {
 
     private registerComponentFactory(componentOrComponents: PlanetComponent | PlanetComponent[]) {
         const app = this.ngModuleRef.instance.appName;
+        this.componentService.recording(app, componentOrComponents)
         this.getPlantAppRef(app).subscribe(appRef => {
             appRef.registerComponentFactory((componentName: string, config: PlantComponentConfig<any>) => {
                 const components = coerceArray(componentOrComponents);

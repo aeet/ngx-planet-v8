@@ -14,8 +14,11 @@ import {
     setApplicationLoader,
     setApplicationService,
     getApplicationLoader,
-    getApplicationService
+    getApplicationService,
+    getComponentService,
+    setComponentService
 } from './global-planet';
+import { PlanetComponentService } from './component/planet-component-service';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +30,10 @@ export class Planet {
 
     private get planetApplicationService() {
         return getApplicationService();
+    }
+
+    private get planetComponentService() {
+        return getComponentService()
     }
 
     public get loadingDone() {
@@ -53,6 +60,9 @@ export class Planet {
         }
         if (!this.planetApplicationService) {
             setApplicationService(this.injector.get(PlanetApplicationService));
+        }
+        if (!this.planetComponentService) {
+            setComponentService(this.injector.get(PlanetComponentService))
         }
 
         if (planetApplications) {
